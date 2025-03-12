@@ -1,13 +1,13 @@
 from fastapi import FastAPI
 
+from routers.flux import flux_router
+from routers.stable_diffusion import stable_diffusion_router
+
 app = FastAPI()
+app.include_router(flux_router)
+app.include_router(stable_diffusion_router)
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+    return {"message": "Hello Bigger Applications!"}
