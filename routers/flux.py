@@ -1,8 +1,6 @@
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
-import torch
-from diffusers import FluxPipeline, FluxFillPipeline
-from diffusers.utils import load_image
+
 flux_router = APIRouter(
     prefix="/stable_diffusion",
 )
@@ -16,6 +14,9 @@ class FluxGeneration:
 
 @flux_router.post("/generate_image/flux")
 async def generate_image_flux(body: FluxGeneration):
+    """
+    import torch
+    from diffusers import FluxPipeline
     pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
     pipe.enable_model_cpu_offload()
     image = pipe(
@@ -27,7 +28,11 @@ async def generate_image_flux(body: FluxGeneration):
         max_sequence_length=512,
         generator=torch.Generator("cpu").manual_seed(0)
     ).images[0]
-    return image
+
+    output_path = "flux-dev.png"
+    image.save(output_path)
+    """
+    return {}
 
 class Inpainting:
     prompt : str
@@ -36,6 +41,11 @@ class Inpainting:
 
 @flux_router.post("/generate_image/flux")
 async def inpaint_image_flux(body: FluxGeneration):
+    """
+    import torch
+    from diffusers import FluxFillPipeline
+    from diffusers.utils import load_image
+
     image = load_image("https://huggingface.co/datasets/YiYiXu/testing-images/resolve/main/cup.png")
     mask = load_image("https://huggingface.co/datasets/YiYiXu/testing-images/resolve/main/cup_mask.png")
 
@@ -51,5 +61,7 @@ async def inpaint_image_flux(body: FluxGeneration):
         max_sequence_length=512,
         generator=torch.Generator("cpu").manual_seed(0)
     ).images[0]
-    return image
+    image.save(f"output.png")
+    """
+    return {}
 
