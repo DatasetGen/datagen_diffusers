@@ -9,8 +9,6 @@ from PIL import Image
 app = FastAPI()
 #app.include_router(flux_router)
 #app.include_router(stable_diffusion_router)
-pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0")
-pipe.to("cuda")
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,6 +20,8 @@ app.add_middleware(
 
 @app.get("/", response_class=Response)
 async def root(prompt: str):
+    pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0")
+    pipe.to("cuda")
     image = pipe(prompt).images[0]
     img_io = io.BytesIO()
     image.save(img_io, format="PNG")
