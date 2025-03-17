@@ -21,4 +21,4 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 WORKDIR /app
 # Set the default command to bash
-CMD ["fastapi", "dev", "main.py", "--host 0.0.0.0"]
+CMD ["fastapi", "dev", "main.py", "--host", "0.0.0.0"]
