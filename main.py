@@ -1,14 +1,14 @@
 from fastapi import FastAPI, Response
 from diffusers import DiffusionPipeline
-from routers.flux import flux_router
-from routers.stable_diffusion import stable_diffusion_router
+#from routers.flux import flux_router
+#from routers.stable_diffusion import stable_diffusion_router
 from fastapi.middleware.cors import CORSMiddleware
 import io
 from PIL import Image
 
 app = FastAPI()
-app.include_router(flux_router)
-app.include_router(stable_diffusion_router)
+#app.include_router(flux_router)
+#app.include_router(stable_diffusion_router)
 
 app.add_middleware(
     CORSMiddleware,
