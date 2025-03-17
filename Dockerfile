@@ -19,5 +19,7 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
 RUN pip install diffusers["torch"] transformers sentencepiece sentencepiece protobuf huggingface_hub fastapi
 RUN pip install -r requirements.txt
 
+WORKDIR /app
+COPY . .
 # Set the default command to bash
-CMD ["/bin/bash"]
+CMD ["fastapi", "dev", "main.py"]
