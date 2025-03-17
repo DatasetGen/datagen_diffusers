@@ -22,6 +22,7 @@ app.add_middleware(
 async def root():
     pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0")
     prompt = "Astronaut in a jungle, cold color palette, muted colors, detailed, 8k"
+    pipe.to("cuda")
     image = pipe(prompt).images[0]
     img_io = io.BytesIO()
     image.save(img_io, format="PNG")
