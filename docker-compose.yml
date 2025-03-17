@@ -7,3 +7,14 @@ services:
       context: .
     env_file:
       - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./huggingface/:/root/.cache/huggingface/
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
